@@ -10,6 +10,7 @@
 <div class="card">
     <div class="card-body">
         {!! Form::open(['route'=>'admin.posts.store','autocomplete'=>'off']) !!}
+        {!! Form::hidden('user_id', auth()->user()->id) !!}
         <div class="form-group">
             {!! Form::label('name', 'Nombre') !!}
             {!! Form::text('name', null, ['class'=>'form-control','placeholder'=>'Ingrese el nombre de la categoría'])

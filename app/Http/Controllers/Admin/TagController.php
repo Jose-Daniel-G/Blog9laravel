@@ -8,9 +8,13 @@ use App\Models\Tag;
 
 class TagController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // public function __construct()
+    // {
+    //     $this->middleware('can:admin.tags.index')->only('index');
+    //     $this->middleware('can:admin.tags.create')->only('create', 'store');
+    //     $this->middleware('can:admin.tags.edit')->only('edit', 'update');
+    //     $this->middleware('can:admin.tags.destroy')->only('destroy');
+    // }
     public function index()
     {
         $tags = Tag::all();
