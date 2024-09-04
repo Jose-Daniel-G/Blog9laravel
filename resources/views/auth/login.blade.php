@@ -2,7 +2,7 @@
     <x-authentication-card>
         <x-slot name="logo">
             {{-- <x-authentication-card-logo /> --}}
-            <img src="{{ asset('favicons/HEBRON.jpg') }}" alt="Logo" class="w-20 h-20">
+            <img src="{{ asset('vendor/adminlte/dist/img/HEBRON.png') }}" alt="Logo" class="w-20 h-20">
 
         </x-slot>
 
