@@ -29,7 +29,8 @@
         <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             {{-- Logotipo --}}
           <a href="/" class="flex flex-shrink-0 items-center">
-            <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company">
+            <img class="h-8 w-auto" src="{{ asset('favicons/HEBRON.jpg') }}" alt="Your Company">
+            {{-- <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company"> --}}
           </a>
 
           {{-- Menu lg --}}
