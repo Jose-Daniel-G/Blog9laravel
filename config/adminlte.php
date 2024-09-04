@@ -111,10 +111,9 @@ return [
 
     'preloader' => [
         'enabled' => true,
-        'mode' => 'fullscreen',
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-            'alt' => 'AdminLTE Preloader Image',
+            'path' => 'vendor/adminlte/dist/img/HEBRON.png',
+            'alt' => 'HEBRON',
             'effect' => 'animation__shake',
             'width' => 60,
             'height' => 60,
