@@ -58,9 +58,16 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $appends = [
         'profile_photo_url',
     ];
-
-    //Relacion uno a muchos
-    public function posts(){
-        return $this->hasMany(Post::class);
+    public function adminlte_image(){
+        // return url($this->profile_photo_url);
+        return 'https://picsum.photos/300/300';
     }
+    public function adminlte_desc(){
+        return 'Administradr';
+    }
+    public function adminlte_profile_url(){
+        return 'profile/username';
+    }
+    // Relacion Uno a Muchos
+    public function posts(){ return $this->hasMany(Post::class);}
 }
