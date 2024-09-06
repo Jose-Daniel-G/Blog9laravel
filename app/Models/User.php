@@ -67,7 +67,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return 'Administradr';
     }
     public function adminlte_profile_url(){
-        return 'profile/username';
+        return url('user/profile');
     }
     // Relacion Uno a Muchos
     public function posts(){ return $this->hasMany(Post::class);}
