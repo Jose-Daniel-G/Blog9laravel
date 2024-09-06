@@ -43,14 +43,16 @@ class RoleSeeder extends Seeder
         Permission::create(['name'=>'admin.posts.destroy'])->syncRoles([$role1,$role2]);
         // $role1->permissions()->attach();
 
+        //VEHICULOS
+        Permission::create(['name'=>'admin.vehiculos.index'])->syncRoles([$role1,$role3,$role4]);
+        Permission::create(['name'=>'admin.vehiculos.create'])->syncRoles([$role1]);
+        Permission::create(['name'=>'admin.vehiculos.update'])->syncRoles([$role1]);  
+              
         //PICO Y PLACA
         Permission::create(['name'=>'admin.vehiculos.pico_y_placa.index'])->syncRoles([$role1,$role3,$role4]);
         Permission::create(['name'=>'admin.vehiculos.pico_y_placa.create'])->syncRoles([$role1]);
         Permission::create(['name'=>'admin.vehiculos.pico_y_placa.update'])->syncRoles([$role1]);
-        //VEHICULOS
-        Permission::create(['name'=>'admin.vehiculos.index'])->syncRoles([$role1,$role3,$role4]);
-        Permission::create(['name'=>'admin.vehiculos.create'])->syncRoles([$role1]);
-        Permission::create(['name'=>'admin.vehiculos.update'])->syncRoles([$role1]);
+
         //CURSOS
         Permission::create(['name'=>'admin.cursos.index'])->syncRoles([$role1,$role3,$role4]);
         Permission::create(['name'=>'admin.cursos.create'])->syncRoles([$role1]);

@@ -346,6 +346,13 @@ return [
             'icon' => 'far fa-fw fa-bookmark',
             'active' => ['admin/tags*'],
         ],
+        [
+            'text' => 'Vehiculos',
+            'route' => 'admin.vehiculos.index',
+            'icon' => 'far fa-fw fa-bookmark',
+            'active' => ['admin/vehiculos*'],
+            // 'can'  => 'admin.users.index',
+        ],
         // [
         //     'text' => 'multilevel',
         //     'icon' => 'fas fa-fw fa-share',
@@ -389,13 +396,15 @@ return [
             'text' => 'Lista de post',
             // 'icon_color' => 'red',
             'route' => 'admin.posts.index',
-            'icon' => 'fas fa-fw fa-clipboard'
+            'icon' => 'fas fa-fw fa-clipboard',
+            'active' => ['admin/posts*'],
         ],
         [
             'text' => 'Crear nuevo post',
             // 'icon_color' => 'yellow',
             'route' => 'admin.posts.create',
-            'icon' => 'fas fa-fw fa-file'
+            'icon' => 'fas fa-fw fa-file',
+
         ],
         // [
         //     'text' => 'information',

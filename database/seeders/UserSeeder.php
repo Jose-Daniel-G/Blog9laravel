@@ -24,21 +24,38 @@ class UserSeeder extends Seeder
         User::create([
             'name'=>'Juan David Grijalba Osorio',
             'sexo'=> 'M',
-            'telefono'=>'314852684',
+            'telefono'=>'314852685',
             'email'=> 'juandavidgo1997@gmail.com',
             'email_verified_at' => now(),            
             'password'=> bcrypt('123123123'),
         ])->assignRole('Blogger');
 
         User::create([
-            'name'=>'Hebron Customer',
+            'name'=>'Hebron Teacher',
             'sexo'=> 'M',
-            'telefono'=>'314852684',
+            'telefono'=>'314852686',
             'email'=> 'hebron.customer@gmail.com',
             'email_verified_at' => now(),            
             'password'=> bcrypt('123123123'),
-        ]);
+        ])->assignRole('Profesor');
 
+        User::create([
+            'name'=>'Mario',
+            'sexo'=> 'M',
+            'telefono'=>'314852567',
+            'email'=> 'mario@gmail.com',
+            'email_verified_at' => now(),            
+            'password'=> bcrypt('123123123'),
+        ])->assignRole('Alumno');
+
+        User::create([
+            'name'=>'Alejandro',
+            'sexo'=> 'M',
+            'telefono'=>'314852568',
+            'email'=> 'alejo@gmail.com',
+            'email_verified_at' => now(),            
+            'password'=> bcrypt('123123123'),
+        ])->assignRole('Alumno');
         User::factory(9)->create();
     }
 }

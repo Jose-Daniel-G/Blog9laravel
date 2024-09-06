@@ -18,11 +18,7 @@ class PostSeeder extends Seeder
 
             // Aquí puedes asignar una imagen manualmente
             $imagePath = 'favicons/images/' . $i+1 . '.jpg'; // Ruta personalizada de tu imagen
-            Image::create([
-                'url' => $imagePath,
-                'imageable_id' => $post->id,
-                'imageable_type' => Post::class,
-            ]);
+            Image::create(['url' => $imagePath,'imageable_id' => $post->id,'imageable_type' => Post::class,]);
 
             // Asignar etiquetas al post
             $post->tags()->attach([

@@ -12,10 +12,14 @@ class Vehiculo extends Model
     protected $table = 'vehiculos';
 
     protected $fillable = [
+        // 'marca','anio','color', 'pico_y_placa',
         'placa',
         'modelo',
+        'tipo',
         'disponible',
-        'pico_y_placa',
     ];
-}
 
+    // protected $casts = [
+    //     'anio' => 'integer',
+    // ];
+}
