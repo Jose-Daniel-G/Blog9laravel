@@ -15,6 +15,8 @@ class UserSeeder extends Seeder
     {
         User::create([
             'name'=>'Jose Daniel Grijalba Osorio',
+            'sexo'=> randomElement(['M','F']),
+            'telefono'=>'',
             'email'=> 'jose.jdgo97@gmail.com',
             'password'=> bcrypt('123123123'),
         ])->assignRole('Admin');
