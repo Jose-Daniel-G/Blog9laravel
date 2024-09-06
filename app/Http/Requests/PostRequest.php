@@ -4,16 +4,17 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePostRequest extends FormRequest
+class PostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        if ($this->user_id == auth()->user()->id) {
-            return true;
-        } else { return false;}
+        // if ($this->user_id == auth()->user()->id) {
+        //     return true;
+        // } else { return false;}
+        return true;
     }
 
     /**

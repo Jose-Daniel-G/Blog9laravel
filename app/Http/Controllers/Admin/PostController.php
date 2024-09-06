@@ -66,24 +66,34 @@ class PostController extends Controller
     {
         // $this->authorize('author',$post);
         $post->update($request->all());
-
+    
         $file = $request->file('file');
         if (!empty($file)) {
-
+    
             $nombre =  time() . "_" . $file->getClientOriginalName();
             $imagenes = $file->storeAs('public/uploads', $nombre);
-            $url = Storage::url($imagenes);
+            $url = Storage::url($imagenes); // URL para guardar en la base de datos
+            $path = Storage::path($imagenes); // Ruta completa en el sistema de archivos
+    
             if($post->image->url){
-                unlink(public_path().$post->image->url);
-              
-                $post->image->update([ 'url' => $url]);
+                // Convertir la URL almacenada en la base de datos en una ruta válida
+                $oldImagePath = public_path('storage/' . str_replace('storage/', '', $post->image->url));
+    
+                // Verificar si el archivo existe antes de intentar eliminarlo
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+    
+                $post->image->update(['url' => $url]);
             } else {
-                $post->image()->create([ 'url' => $url]);
+                $post->image()->create(['url' => $url]);
             }
         }
-        return redirect()->route('admin.posts.edit', $post)->with('success','Post actualizado correctamente');
+    
+        return redirect()->route('admin.posts.edit', $post)->with('success', 'Post actualizado correctamente');
     }
-
+    
+    
     public function destroy(Post $post){
         // $this->authorize('author',$post);
         $post->delete();

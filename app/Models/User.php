@@ -12,6 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
+    // use HasRoles;//añadida no especificada en el curso
     use HasApiTokens;
     use HasFactory;
     use HasProfilePhoto;
