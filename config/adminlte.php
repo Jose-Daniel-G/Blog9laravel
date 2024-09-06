@@ -323,7 +323,7 @@ return [
             'text' => 'Dashboard',
             // 'url' => 'admin/pages',
             'route' => 'admin.home',
-            'icon' => 'fas fa-tachometer-alt fa-fw ',
+            'icon' => 'fas fa-home fa-fw ',
             // 'label' => 4,
             // 'label_color' => 'success',
         ],[

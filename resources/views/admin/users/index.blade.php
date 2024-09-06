@@ -6,7 +6,7 @@
     <h1>Lista de usuarios</h1>
 @stop
 @section('content')
-    @livewire('livewire.admin.users-index')
+    @livewire('admin.users-index')
 @stop
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">

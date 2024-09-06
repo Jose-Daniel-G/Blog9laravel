@@ -10,7 +10,7 @@
             <div class="lg:col-span-2 ">
                 <figure>
                     @if ($post->image)
-                        <img class="w-full h-72 object-cover object-center" src="{{ $post->image->url }}" alt="">
+                        <img class="w-full h-72 object-cover object-center" src="{{ asset($post->image) }}" alt="">
                     @else
                         <img class="w-full h-72 object-cover object-center"
                             src="https://cdn.pixabay.com/photo/2020/03/27/13/02/venice-4973502_1280.jpg" alt="">
