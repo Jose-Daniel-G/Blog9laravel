@@ -85,3 +85,10 @@
     @error('extract')
         <small class="text-danger">{{ $message }}</small>
     @enderror
+    <div class="form-group">
+        <label for="body">Cuerpo del Post:</label>
+        <textarea name="body" id="body" class="form-control">{{ old('body', $post->body ?? '') }}</textarea>
+    </div>
+    @error('body')
+        <small class="text-danger">{{ $message }}</small>
+    @enderror
