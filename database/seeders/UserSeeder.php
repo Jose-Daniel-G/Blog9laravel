@@ -15,20 +15,27 @@ class UserSeeder extends Seeder
     {
         User::create([
             'name'=>'Jose Daniel Grijalba Osorio',
-            'sexo'=> randomElement(['M','F']),
-            'telefono'=>'',
+            'sexo'=> 'M',
+            'telefono'=>'314852684',
             'email'=> 'jose.jdgo97@gmail.com',
+            'email_verified_at' => now(),            
             'password'=> bcrypt('123123123'),
         ])->assignRole('Admin');
         User::create([
             'name'=>'Juan David Grijalba Osorio',
+            'sexo'=> 'M',
+            'telefono'=>'314852684',
             'email'=> 'juandavidgo1997@gmail.com',
+            'email_verified_at' => now(),            
             'password'=> bcrypt('123123123'),
         ])->assignRole('Blogger');
 
         User::create([
             'name'=>'Hebron Customer',
+            'sexo'=> 'M',
+            'telefono'=>'314852684',
             'email'=> 'hebron.customer@gmail.com',
+            'email_verified_at' => now(),            
             'password'=> bcrypt('123123123'),
         ]);
 
