@@ -60,8 +60,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'profile_photo_url',
     ];
     public function adminlte_image(){
-        // return url($this->profile_photo_url);
-        return 'https://picsum.photos/300/300';
+        return url($this->profile_photo_url);
+        // return 'https://picsum.photos/300/300';
     }
     public function adminlte_desc(){
         return 'Administradr';
