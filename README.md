@@ -91,3 +91,4 @@ composer require laravel-lang/common
 php artisan lang:add es
 php artisan lang:update
 composer dump-autoload
+git rm --cached DB_HEBRON.jpg
