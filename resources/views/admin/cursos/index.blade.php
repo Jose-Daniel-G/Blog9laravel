@@ -11,7 +11,7 @@
     @if (session('info'))
         <div class="alert alert-success"><strong>{{ session('info') }}</strong></div>
     @endif
-                <!-- Mostrar errores si existen -->
+    <!-- Mostrar errores si existen -->
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -42,14 +42,10 @@
                             <td>{{ $curso->nombre }}</td>
                             <td>{{ $curso->horas_requeridas }}</td>
                             <td width="10px">
-                                <!-- Botón de edición con los datos del vehículo -->
-                                <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editCursoModal"
-                                    data-id="{{ $curso->id }}" 
-                                    data-name="{{ $curso->nombre }}" 
-                                    data-horas_requeridas="{{ $curso->horas_requeridas }}"
-                                    data-placa="{{ $curso->placa }}"
-                                    data-tipo="{{ $curso->tipo }}">Editar</a>
+                                <button class="btn btn-primary" data-toggle="modal"
+                                    data-target="#modal-{{ $curso->id }}">Editar</button>
                             </td>
+
                             <td width="10px">
                                 <form action="{{ route('admin.cursos.destroy', $curso) }}" method="post">
                                     @csrf
@@ -58,6 +54,7 @@
                                 </form>
                             </td>
                         </tr>
+                        @include('admin.cursos.edit')
                     @endforeach
                 </tbody>
             </table>
@@ -66,37 +63,5 @@
 
     <!-- Modales para crear y editar vehículos -->
     @include('admin.cursos.create')
-    @include('admin.cursos.edit')
-
-@endsection
-
-    @section('js')
-    <script>
-        $(document).ready(function() {
-            // Llenar el modal de edición con los datos del vehículo seleccionado
-            $('#editCursoModal').on('show.bs.modal', function(event) {
-                var button = $(event.relatedTarget); // Botón que disparó el modal
-                var id = button.data('id'); // Extraer el ID del vehículo
-                var name = button.data('name'); // Extraer el nombre del vehículo
-                var horas_requeridas = button.data('horas_requeridas'); // Extraer el horas_requeridas del vehículo
-                var IdCurso = button.data('IdCurso'); // Extraer la IdCurso del vehículo
-                var tipo = button.data('tipo'); // Extraer el tipo de vehículo
-
-                // Actualizar la acción del formulario con el ID del vehículo
-                var form = $('#editCursoForm');
-                var action = form.attr('action').replace(':id', id);
-                form.attr('action', action);
-
-                // Rellenar los campos del modal con los datos del vehículo
-                $('#editCursoNombre').val(name);
-                $('#editCursoModelo').val(horas_requeridas);
-                $('#editCursoTipo').val(tipo);
-
-                // Mostrar la IdCurso en el campo de texto y actualizar el campo oculto
-                $('#editCursoID').val(IdCurso); // Mostrar la IdCurso al usuario
-                $('#IdCurso').val(IdCurso); // Asegurarse de que el valor de la IdCurso se envía
-            });
-        });
-    </script>
 
 @endsection
