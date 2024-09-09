@@ -341,6 +341,20 @@ return [
             'active' => ['admin/vehiculos*'],
             // 'can'  => 'admin.users.index',
         ],
+        [
+            'text' => 'Cursos',
+            'route' => 'admin.cursos.index',
+            'icon' => 'far fa-fw fa-bookmark',
+            'active' => ['admin/cursos*'],
+            // 'can'  => 'admin.users.index',
+        ],
+        // [
+        //     'text' => 'Clases',
+        //     'route' => 'admin.clases.index',
+        //     'icon' => 'far fa-fw fa-bookmark',
+        //     'active' => ['admin/clases*'],
+        //     // 'can'  => 'admin.users.index',
+        // ],
         // [
         //     'text' => 'multilevel',
         //     'icon' => 'fas fa-fw fa-share',

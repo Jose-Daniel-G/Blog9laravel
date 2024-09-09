@@ -56,6 +56,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),            
             'password'=> bcrypt('123123123'),
         ])->assignRole('Alumno');
+        
         User::factory(9)->create();
     }
 }

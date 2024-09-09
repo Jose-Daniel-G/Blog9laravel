@@ -10,12 +10,12 @@ class CursoController extends Controller
     public function index()
     {
         $cursos = Curso::all();
-        return view('cursos.index', compact('cursos'));
+        return view('admin.cursos.index', compact('cursos'));
     }
 
     public function create()
     {
-        return view('cursos.create');
+        return view('admin.cursos.create');
     }
 
     public function store(Request $request)
@@ -26,13 +26,13 @@ class CursoController extends Controller
         $curso->horas_requeridas = $request->horas_requeridas;
         $curso->save();
 
-        return redirect()->route('cursos.index');
+        return redirect()->route('admin.cursos.index');
     }
 
     public function edit($id)
     {
         $curso = Curso::find($id);
-        return view('cursos.edit', compact('curso'));
+        return view('admin.cursos.edit', compact('curso'));
     }
 
     public function update(Request $request, $id)
@@ -43,7 +43,7 @@ class CursoController extends Controller
         $curso->horas_requeridas = $request->horas_requeridas;
         $curso->save();
 
-        return redirect()->route('cursos.index');
+        return redirect()->route('admin.cursos.index');
     }
 
     public function destroy($id)
@@ -51,6 +51,6 @@ class CursoController extends Controller
         $curso = Curso::find($id);
         $curso->delete();
 
-        return redirect()->route('cursos.index');
+        return redirect()->route('admin.cursos.index');
     }
 }
