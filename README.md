@@ -85,7 +85,9 @@ php artisan cache:clear
 php artisan config:clear
 php artisan view:clear
 php artisan route:clear
+php artisan view:clear
 
 composer require laravel-lang/common
 php artisan lang:add es
 php artisan lang:update
+composer dump-autoload

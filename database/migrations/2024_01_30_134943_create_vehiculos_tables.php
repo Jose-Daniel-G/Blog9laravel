@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('vehiculos', function (Blueprint $table) {
             $table->id();
             $table->string('placa')->unique();
-            $table->string('modelo');
+            $table->string('nombre');
+            $table->integer('modelo');
             $table->boolean('disponible')->default(true);
-            $table->enum('tipo', ['moto', 'carro'])->default('carro');
+            $table->string('tipo');
             $table->timestamps();
             $table->unsignedBigInteger('picoyplaca_id')->nullable();
             $table->unsignedBigInteger('usuario_id')->nullable();

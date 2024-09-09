@@ -326,26 +326,14 @@ return [
             'icon' => 'fas fa-home fa-fw ',
             // 'label' => 4,
             // 'label_color' => 'success',
-        ],[
+        ],
+        [
             'text'        => 'Usuarios',
             'route'         => 'admin.users.index',
             'icon'        => 'fas fa-users fa-fw',
             'can'  => 'admin.users.index',
         ],
         ['header' => 'ADMINISTRADOR'],
-        [
-            'text' => 'Categorias',
-            'route' => 'admin.categories.index',
-            'icon' => 'fab fa-fw fa-buffer',
-            'active' => ['admin/categories*'],
-
-        ],
-        [
-            'text' => 'Etiquetas',
-            'route' => 'admin.tags.index',
-            'icon' => 'far fa-fw fa-bookmark',
-            'active' => ['admin/tags*'],
-        ],
         [
             'text' => 'Vehiculos',
             'route' => 'admin.vehiculos.index',
@@ -393,19 +381,38 @@ return [
         // ],
         ['header' => 'OPCIONES DE BLOG'],
         [
-            'text' => 'Lista de post',
-            // 'icon_color' => 'red',
-            'route' => 'admin.posts.index',
-            'icon' => 'fas fa-fw fa-clipboard',
-            'active' => ['admin/posts*'],
-        ],
-        [
-            'text' => 'Crear nuevo post',
-            // 'icon_color' => 'yellow',
-            'route' => 'admin.posts.create',
-            'icon' => 'fas fa-fw fa-file',
+            'text' => 'Posts',
+            'icon' => 'fas fa-fw fa-share',
+            'submenu' => [
+                [
+                    'text' => 'Categorias',
+                    'route' => 'admin.categories.index',
+                    'icon' => 'fab fa-fw fa-buffer',
+                    'active' => ['admin/categories*'],
 
+                ],
+                [
+                    'text' => 'Etiquetas',
+                    'route' => 'admin.tags.index',
+                    'icon' => 'far fa-fw fa-bookmark',
+                    'active' => ['admin/tags*'],
+                ],        [
+                    'text' => 'Lista de post',
+                    // 'icon_color' => 'red',
+                    'route' => 'admin.posts.index',
+                    'icon' => 'fas fa-fw fa-clipboard',
+                    'active' => ['admin/posts*'],
+                ],
+                [
+                    'text' => 'Crear nuevo post',
+                    // 'icon_color' => 'yellow',
+                    'route' => 'admin.posts.create',
+                    'icon' => 'fas fa-fw fa-file',
+        
+                ],
+            ],
         ],
+
         // [
         //     'text' => 'information',
         //     'icon_color' => 'cyan',

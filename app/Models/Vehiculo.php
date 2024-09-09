@@ -10,14 +10,10 @@ class Vehiculo extends Model
     use HasFactory;
 
     protected $table = 'vehiculos';
-
-    protected $fillable = [
-        // 'marca','anio','color', 'pico_y_placa',
-        'placa',
-        'modelo',
-        'tipo',
-        'disponible',
-    ];
+    protected $fillable = ['nombre', 'modelo', 'tipo']; // Agregar 'placa' si se actualiza
+    // protected $fillable = [
+    //     // 'marca','anio','color', 'pico_y_placa',
+    //     'placa','nombre','modelo', 'tipo','disponible',];
 
     // protected $casts = [
     //     'anio' => 'integer',

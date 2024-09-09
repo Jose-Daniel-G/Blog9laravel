@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
                      UserSeeder::class,
                      CategorySeeder::class,
                      ClaseSeeder::class,
+                     VehiculoSeeder::class,
                     ]);
                     //  TagSeeder::class,
                     
