@@ -42,11 +42,11 @@
                         </div>
                         <div class="form-group">
                             <label for="start">Inicio</label>
-                            <input type="datetime-local" class="form-control" name="start" id="start">
+                            <input type="date" class="form-control" name="start" id="start">
                         </div>
                         <div class="form-group">
                             <label for="end">Fin</label>
-                            <input type="datetime-local" class="form-control" name="end" id="end">
+                            <input type="date" class="form-control" name="end" id="end">
                         </div>
 
 
@@ -66,7 +66,7 @@
 
 @section('css')
     {{-- FullCalendar CSS --}}
-    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" rel="stylesheet">
+    {{-- <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" rel="stylesheet"> --}}
 @stop
 
 @section('js')
@@ -75,12 +75,13 @@
 
     {{-- FullCalendar JS --}}
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
-    {{-- Meta CSRF Token --}}
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     {{-- Script para inicializar el calendario --}}
     <script>
+
         document.addEventListener('DOMContentLoaded', function() {
-            let formulario = document.querySelector("form");
+            //let formulario = document.querySelector('#eventoForm');
+            let form = document.getElementById('eventoForm');
             var calendarEl = document.getElementById('calendar');
             if (calendarEl) {
                 var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -90,9 +91,45 @@
                         center: 'title',
                         right: 'dayGridMonth, timeGridWeek,listWeek' // Vista inicial 
                     },
+                    events: "{{ route('admin.eventos.show') }}",
                     dateClick: function(info) {
+                        form.reset();
+                        form.start.value = info.dateStr;
+                        form.end.value = info.dateStr;
                         $("#claseModal").modal("show");
+                    },
+                    eventClick: function(info) {
+                        var evento = info.event;
+                        var id = info.event.id;
+
+                        console.log(info.event.id);
+
+                        // Construye la URL con el ID del evento
+                        //const url = `http://laravel9.test/eventos/edit/${id}`;
+                        const url = "{{ route('admin.eventos.edit', ':id') }}".replace(':id', id);
+                        axios.post(url)
+                            .then((response) => {
+                                console.log(response
+                                    .data); // Verifica qué está devolviendo el servidor
+                                console.log('descripcion', response.data
+                                    .end); // Verifica qué está devolviendo el servidor
+
+                                let formulario = document.getElementById('eventoForm');
+
+                                const data = response.data;
+
+                                formulario.id.value = data.id;
+                                formulario.title.value = data.title;
+                                formulario.descripcion.value = data.descripcion;
+                                formulario.start.value = formatDateForInput(evento.start);
+                                formulario.end.value = formatDateForInput(evento.end);
+
+                                // Muestra el modal con los datos cargados
+                                $("#claseModal").modal("show");
+                            })
                     }
+
+
                 });
                 calendar.render();
                 document.getElementById("btnGuardar").addEventListener("click", function() {
@@ -107,22 +144,29 @@
 
                     axios.post("{{ route('admin.eventos.store') }}", datos, {
 
-                            headers: {
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
-                                    .getAttribute('content'),
-                            }
-                        })
-
-                        .then((respuesta) => {
-                            $("#claseModal").modal("hide");
-                        }).catch(error => {
-                            if (error.response) {
-                                console.log(error.response.data)
-                            }
-                        });
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                                .getAttribute('content'),
+                        }
+                    }).then((respuesta) => {
+                        calendar.refetchEvents(); // Para recargar eventos del calendario
+                        $("#claseModal").modal("hide");
+                    }).catch(error => {
+                        if (error.response) {
+                            console.log(error.response.data)
+                        }
+                    });
                 });
             }
         });
+                // Función de formato de fecha
+        function formatDateForInput(dateTime) {
+            const date = new Date(dateTime);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
     </script>
     {{-- Script para inicializar el calendario --}}
 @stop

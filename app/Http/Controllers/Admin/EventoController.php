@@ -16,31 +16,31 @@ class EventoController extends Controller
     {
         //
     }
-public function store(Request $request)
-{
-    $request->validate([
-        'title' => 'required',
-        'start' => 'required|date',
-        'end' => 'required|date',
-    ]);
-
-    Evento::create($request->all());
-
-    return response()->json(['message' => 'Evento creado correctamente']);
-}
+    public function store(Request $request)
+    {
+        // $request->validate(['title' => 'required','descripcion' => 'required','start' => 'required|date','end' => 'required|date',]);
+        Evento::create($request->all());
+    
+        return response()->json(['message' => 'Evento creado correctamente']);
+    }
     public function show(Evento $evento)
     {
-        //
+        $evento = Evento::all();
+        return response()->json($evento);
     }
-    public function edit(Evento $evento)
+    public function edit($id)
+    {
+        $evento = Evento::find($id);
+        // dd($evento);
+        return response()->json($evento);
+        //return view("admin.eventos.edit", compact("evento"));
+        // return response()->json(compact("evento"));
+    }
+    public function update(Request $request, Request $evento)
     {
         //
     }
-    public function update(Request $request, Evento $evento)
-    {
-        //
-    }
-    public function destroy(Evento $evento)
+    public function destroy(Request $evento)
     {
         //
     }

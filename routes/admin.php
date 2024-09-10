@@ -24,5 +24,7 @@ Route::resource('vehiculos', VehiculoController::class)->names('admin.vehiculos'
 Route::resource('cursos', CursoController::class)->names('admin.cursos');
 
 Route::get('eventos', [EventoController::class, 'index'])->name('admin.eventos.index');
-// Route::get('eventos', [EventoController::class, 'index'])->name('admin.eventos.index');
+Route::get('eventos/mostrar', [EventoController::class, 'show'])->name('admin.eventos.show');
+// Route::post('admin/eventos/editar/{id}', 'EventoController@edit')->name('admin.eventos.edit');
+Route::post('eventos/editar/{id}', [EventoController::class, 'edit'])->name('admin.eventos.edit');
 Route::post('eventos/agregar', [EventoController::class, 'store'])->name('admin.eventos.store');
