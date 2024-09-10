@@ -54,7 +54,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success me-2" id="btnGuardar">Guardar</button>
-                    <button type="button" class="btn btn-warning me-2" id="btnModificar">Modificar</button>
+                    <button type="button" class="btn btn-warning me-2" id="btnUpdate">Modificar</button>
                     <button type="button" class="btn btn-danger me-2" id="btnEliminar">Eliminar</button>
                     <button type="button" class="btn btn-secondary me-2" data-dismiss="modal">cerrar</button>
                 </div>
@@ -78,7 +78,6 @@
 
     {{-- Script para inicializar el calendario --}}
     <script>
-
         document.addEventListener('DOMContentLoaded', function() {
             //let formulario = document.querySelector('#eventoForm');
             let form = document.getElementById('eventoForm');
@@ -102,36 +101,28 @@
                         var evento = info.event;
                         var id = info.event.id;
 
-                        console.log(info.event.id);
+                    // Construye la URL con el ID del evento
+                    //const url = `http://laravel9.test/eventos/edit/${id}`;
+                    const url = "{{ route('admin.eventos.edit', ':id') }}".replace(':id', id);
+                    axios.post(url)
+                        .then((response) => {
+                            //console.log(response.data); // Verifica qué está devolviendo el servidor
+                            let formulario = document.getElementById('eventoForm');
 
-                        // Construye la URL con el ID del evento
-                        //const url = `http://laravel9.test/eventos/edit/${id}`;
-                        const url = "{{ route('admin.eventos.edit', ':id') }}".replace(':id', id);
-                        axios.post(url)
-                            .then((response) => {
-                                console.log(response
-                                    .data); // Verifica qué está devolviendo el servidor
-                                console.log('descripcion', response.data
-                                    .end); // Verifica qué está devolviendo el servidor
+                            const data = response.data;
 
-                                let formulario = document.getElementById('eventoForm');
+                            formulario.id.value = data.id;
+                            formulario.title.value = data.title;
+                            formulario.descripcion.value = data.descripcion;
+                            formulario.start.value = formatDateForInput(evento.start);
+                            formulario.end.value = formatDateForInput(evento.end);
 
-                                const data = response.data;
-
-                                formulario.id.value = data.id;
-                                formulario.title.value = data.title;
-                                formulario.descripcion.value = data.descripcion;
-                                formulario.start.value = formatDateForInput(evento.start);
-                                formulario.end.value = formatDateForInput(evento.end);
-
-                                // Muestra el modal con los datos cargados
-                                $("#claseModal").modal("show");
-                            })
+                            $("#claseModal").modal("show");
+                        })
                     }
-
-
                 });
                 calendar.render();
+
                 document.getElementById("btnGuardar").addEventListener("click", function() {
                     let formulario = document.getElementById('eventoForm');
                     const datos = {
@@ -141,25 +132,48 @@
                         start: formulario.start.value,
                         end: formulario.end.value
                     };
+                    const url = "{{ route('admin.eventos.store') }}";
+                    sendData(url, datos);
+                });
+                document.getElementById("btnEliminar").addEventListener("click", function() {
+                    var id = form.id.value;
+                    const url = "{{ route('admin.eventos.destroy', ':id') }}".replace(':id', id); // Ruta para eliminar
+                    sendData(url, { _method: 'DELETE', id: id });
+                });
+                document.getElementById("btnUpdate").addEventListener("click", function() {
+                    let formulario = document.getElementById('eventoForm');
+                    const datos = {
+                        _method: 'PUT', // Laravel espera una solicitud PUT para actualizar
+                        title: formulario.title.value,
+                        descripcion: formulario.descripcion.value,
+                        start: formulario.start.value,
+                        end: formulario.end.value
+                    };
 
-                    axios.post("{{ route('admin.eventos.store') }}", datos, {
+                    const url = "{{ route('admin.eventos.update', ':id') }}".replace(':id', formulario.id.value);
+                    
+                    sendData(url, datos);
+                });
 
+
+                function sendData(url, datos) {
+                    axios.post(url, datos, {
                         headers: {
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
-                                .getAttribute('content'),
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // CSRF token para Laravel
                         }
                     }).then((respuesta) => {
-                        calendar.refetchEvents(); // Para recargar eventos del calendario
-                        $("#claseModal").modal("hide");
+                        calendar.refetchEvents(); // Recargar eventos del calendario
+                        $("#claseModal").modal("hide"); // Cerrar el modal
                     }).catch(error => {
                         if (error.response) {
-                            console.log(error.response.data)
+                            console.log(error.response.data); // Manejo de errores
                         }
                     });
-                });
+                }
+
             }
         });
-                // Función de formato de fecha
+        // Función de formato de fecha
         function formatDateForInput(dateTime) {
             const date = new Date(dateTime);
             const year = date.getFullYear();

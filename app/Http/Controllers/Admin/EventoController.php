@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Evento;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class EventoController extends Controller
 {
@@ -18,9 +19,9 @@ class EventoController extends Controller
     }
     public function store(Request $request)
     {
-        // $request->validate(['title' => 'required','descripcion' => 'required','start' => 'required|date','end' => 'required|date',]);
+        $request->validate(['title' => 'required', 'descripcion' => 'required', 'start' => 'required|date', 'end' => 'required|date',]);
         Evento::create($request->all());
-    
+
         return response()->json(['message' => 'Evento creado correctamente']);
     }
     public function show(Evento $evento)
@@ -31,17 +32,24 @@ class EventoController extends Controller
     public function edit($id)
     {
         $evento = Evento::find($id);
-        // dd($evento);
+        // $evento->start = Carbon::createFromFormat('Y-m-d H:i:s',$evento->start)->format('Y-m-d');
+        // $evento->end = Carbon::createFromFormat('Y-m-d H:i:s',$evento->end)->format('Y-m-d');
         return response()->json($evento);
-        //return view("admin.eventos.edit", compact("evento"));
-        // return response()->json(compact("evento"));
     }
-    public function update(Request $request, Request $evento)
+    public function update(Request $request, Evento $evento)
     {
-        //
+        $validatedData = $request->validate(['title' => 'required','descripcion' => 'required','start' => 'required|date','end' => 'required|date',]);
+
+        $evento->update($validatedData);
+
+        return response()->json(['message' => 'Evento actualizado correctamente']);
     }
-    public function destroy(Request $evento)
+
+    public function destroy($id)
     {
-        //
+        $evento = Evento::find($id);
+        $evento->delete();
+    
+        return response()->json(['message' => 'Evento eliminado exitosamente']);
     }
 }

@@ -12,9 +12,6 @@
     Route::get('categories/{category}', [PostController::class,'category'])->name('posts.category');
     Route::get('tag/{tag}',[PostController::class, 'tag'])->name('posts.tag');
 
-
-    // Route::resource('eventos', EventoController::class)->names('eventos');
-
     Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])
     ->group(function () {Route::get('/dashboard', function () {return view('dashboard');})->name('dashboard');});
 
