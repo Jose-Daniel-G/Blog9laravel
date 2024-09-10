@@ -3,63 +3,64 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Clase;
 use Illuminate\Http\Request;
 
 class ClaseController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $clases = Clase::all();
+        return view('clases.index', compact('clases'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('clases.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $clase = new Clase();
+        $clase->alumno_id = $request->alumno_id;
+        $clase->profesor_id = $request->profesor_id;
+        $clase->vehiculo_id = $request->vehiculo_id;
+        $clase->curso_id = $request->curso_id;
+        $clase->fecha_hora = $request->fecha_hora;
+        $clase->duracion = $request->duracion;
+        $clase->estado = $request->estado;
+        $clase->save();
+
+        return redirect()->route('clases.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit($id)
     {
-        //
+        $clase = Clase::find($id);
+        return view('clases.edit', compact('clase'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $clase = Clase::find($id);
+        $clase->alumno_id = $request->alumno_id;
+        $clase->profesor_id = $request->profesor_id;
+        $clase->vehiculo_id = $request->vehiculo_id;
+        $clase->curso_id = $request->curso_id;
+        $clase->fecha_hora = $request->fecha_hora;
+        $clase->duracion = $request->duracion;
+        $clase->estado = $request->estado;
+        $clase->save();
+
+        return redirect()->route('clases.index');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy($id)
     {
-        //
-    }
+        $clase = Clase::find($id);
+        $clase->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return redirect()->route('clases.index');
     }
 }
+

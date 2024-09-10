@@ -23,7 +23,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="" autocomplete="off" method="POST">
+                    <form action="" autocomplete="off" id="eventoForm" method="POST">
                         @csrf
                         <div class="form-group">
                             <label for="id">ID</label>
@@ -34,26 +34,21 @@
                         <div class="form-group">
                             <label for="title">Clase</label>
                             <input type="text" class="form-control" name="title" id="title"
-                                aria-describedby="helpId" placeholder="Agenda la clase">
-                            <small id="helpId" class="form-text text-muted">Help text</small>
+                                placeholder="Agenda la clase">
                         </div>
                         <div class="form-group">
-                            <label for="descripcion">Descripcion del evento</label>
+                            <label for="descripcion">Descripción del evento</label>
                             <textarea class="form-control" name="descripcion" id="descripcion"></textarea>
-                            <small id="helpId" class="form-text text-muted">Help text</small>
                         </div>
                         <div class="form-group">
-                            <label for="">Start</label>
-                            <input type="date" class="form-control" name="dateStart" id="dateStart"
-                                aria-describedby="helpId" placeholder="">
-                            <small id="helpId" class="form-text text-muted">Help text</small>
+                            <label for="start">Inicio</label>
+                            <input type="datetime-local" class="form-control" name="start" id="start">
                         </div>
                         <div class="form-group">
-                            <label for="dateEnd">End</label>
-                            <input type="date" class="form-control" name="dateEnd" id="dateEnd"
-                                aria-describedby="helpId" placeholder="">
-                            <small id="helpId" class="form-text text-muted">Help text</small>
+                            <label for="end">Fin</label>
+                            <input type="datetime-local" class="form-control" name="end" id="end">
                         </div>
+
 
                     </form>
                 </div>
@@ -75,9 +70,13 @@
 @stop
 
 @section('js')
+    {{-- Axios JS --}}
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     {{-- FullCalendar JS --}}
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
-
+    {{-- Meta CSRF Token --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     {{-- Script para inicializar el calendario --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -97,18 +96,33 @@
                 });
                 calendar.render();
                 document.getElementById("btnGuardar").addEventListener("click", function() {
-                    const datos = new FormData(formulario);
-                    console.log(formulario.title.value);
-                    axios.post("http://laravel9.test/evento/agregar", $datos)
+                    let formulario = document.getElementById('eventoForm');
+                    const datos = {
+                        id: formulario.id.value,
+                        title: formulario.title.value,
+                        descripcion: formulario.descripcion.value,
+                        start: formulario.start.value,
+                        end: formulario.end.value
+                    };
+
+                    axios.post("{{ route('admin.eventos.store') }}", datos, {
+
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute('content'),
+                            }
+                        })
+
                         .then((respuesta) => {
                             $("#claseModal").modal("hide");
-                        })
-                })
-            } else {
-                console.error('El elemento #calendar no fue encontrado en el DOM');
+                        }).catch(error => {
+                            if (error.response) {
+                                console.log(error.response.data)
+                            }
+                        });
+                });
             }
         });
     </script>
     {{-- Script para inicializar el calendario --}}
-    {{-- <script scr="{{ mix('js/calendar.js') }}"></script> --}}
 @stop

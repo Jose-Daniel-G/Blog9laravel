@@ -30,7 +30,7 @@ class ClaseSeeder extends Seeder
         }
 
         // Crear 10 clases de ejemplo
-        for ($i = 1; $i <= 3; $i++) {
+        for ($i = 1; $i <= 2; $i++) {
             Clase::create([
                 'alumno_id' => $alumnos[array_rand($alumnos)],
                 'profesor_id' => $profesores[array_rand($profesores)],

@@ -1,24 +1,33 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Evento;
 use Illuminate\Http\Request;
 
 class EventoController extends Controller
-{    public function index()
+{
+    public function index()
     {
-        return view('evento.index');
+        return view('eventos.index');
     }
     public function create()
     {
         //
     }
-    public function store(Request $request)
-    {
-        $request()->validate(Evento::$rules);
-        $evento = Evento::create($request->all());
-    }
+public function store(Request $request)
+{
+    $request->validate([
+        'title' => 'required',
+        'start' => 'required|date',
+        'end' => 'required|date',
+    ]);
+
+    Evento::create($request->all());
+
+    return response()->json(['message' => 'Evento creado correctamente']);
+}
     public function show(Evento $evento)
     {
         //

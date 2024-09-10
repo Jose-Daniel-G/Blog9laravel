@@ -11,7 +11,7 @@
     @if (session('info'))
         <div class="alert alert-success"><strong>{{ session('info') }}</strong></div>
     @endif
-                <!-- Mostrar errores si existen -->
+    <!-- Mostrar errores si existen -->
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
