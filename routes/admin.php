@@ -7,7 +7,7 @@ use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VehiculoController;
-use App\Http\Controllers\CursoController;
+use App\Http\Controllers\Admin\CursoController;
 
 // use App\Http\Controllers\ClaseController;
 // use App\Http\Controllers\CursoController;
