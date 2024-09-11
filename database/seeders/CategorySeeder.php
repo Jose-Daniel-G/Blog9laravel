@@ -12,8 +12,8 @@ class CategorySeeder extends Seeder
      * Run the database seeds.
      */
     public function run(): void
-    {
-        $categories = ['Inicio', 'Nosotros', 'Cursos', 'Blog', 'Contacto'];
+    {   //['Inicio','Blog']
+        $categories = ['Nosotros', 'Cursos',  'Contacto'];
 
         foreach ($categories as $name) {
             Category::create([

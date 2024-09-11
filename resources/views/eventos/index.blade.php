@@ -17,7 +17,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="claseModalLabel">Crear nuevo Curso</h5>
+                    <h5 class="modal-title" id="claseModalLabel">Fechas</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -25,7 +25,7 @@
                 <div class="modal-body">
                     <form action="" autocomplete="off" id="eventoForm" method="POST">
                         @csrf
-                        <div class="form-group">
+                        <div class="form-group d-none">
                             <label for="id">ID</label>
                             <input type="text" class="form-control" name="id" id="id"
                                 aria-describedby="helpId" placeholder="">
@@ -40,11 +40,11 @@
                             <label for="descripcion">Descripción del evento</label>
                             <textarea class="form-control" name="descripcion" id="descripcion"></textarea>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group d-none">
                             <label for="start">Inicio</label>
                             <input type="date" class="form-control" name="start" id="start">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group d-none">
                             <label for="end">Fin</label>
                             <input type="date" class="form-control" name="end" id="end">
                         </div>
@@ -84,11 +84,13 @@
             var calendarEl = document.getElementById('calendar');
             if (calendarEl) {
                 var calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'dayGridMonth',
                     locale: 'es',
+                    displayEventTime: false,
                     headerToolbar: {
                         left: 'prev,next today',
                         center: 'title',
-                        right: 'dayGridMonth, timeGridWeek,listWeek' // Vista inicial 
+                        right: 'dayGridMonth,timeGridWeek,listWeek' // Botones de vistas
                     },
                     events: "{{ route('admin.eventos.show') }}",
                     dateClick: function(info) {
@@ -101,24 +103,24 @@
                         var evento = info.event;
                         var id = info.event.id;
 
-                    // Construye la URL con el ID del evento
-                    //const url = `http://laravel9.test/eventos/edit/${id}`;
-                    const url = "{{ route('admin.eventos.edit', ':id') }}".replace(':id', id);
-                    axios.post(url)
-                        .then((response) => {
-                            //console.log(response.data); // Verifica qué está devolviendo el servidor
-                            let formulario = document.getElementById('eventoForm');
+                        // Construye la URL con el ID del evento
+                        //const url = `http://laravel9.test/eventos/edit/${id}`;
+                        const url = "{{ route('admin.eventos.edit', ':id') }}".replace(':id', id);
+                        axios.post(url)
+                            .then((response) => {
+                                //console.log(response.data); // Verifica qué está devolviendo el servidor
+                                let formulario = document.getElementById('eventoForm');
 
-                            const data = response.data;
+                                const data = response.data;
 
-                            formulario.id.value = data.id;
-                            formulario.title.value = data.title;
-                            formulario.descripcion.value = data.descripcion;
-                            formulario.start.value = formatDateForInput(evento.start);
-                            formulario.end.value = formatDateForInput(evento.end);
+                                formulario.id.value = data.id;
+                                formulario.title.value = data.title;
+                                formulario.descripcion.value = data.descripcion;
+                                formulario.start.value = formatDateForInput(evento.start);
+                                formulario.end.value = formatDateForInput(evento.end);
 
-                            $("#claseModal").modal("show");
-                        })
+                                $("#claseModal").modal("show");
+                            })
                     }
                 });
                 calendar.render();
@@ -135,11 +137,17 @@
                     const url = "{{ route('admin.eventos.store') }}";
                     sendData(url, datos);
                 });
+
                 document.getElementById("btnEliminar").addEventListener("click", function() {
                     var id = form.id.value;
-                    const url = "{{ route('admin.eventos.destroy', ':id') }}".replace(':id', id); // Ruta para eliminar
-                    sendData(url, { _method: 'DELETE', id: id });
+                    const url = "{{ route('admin.eventos.destroy', ':id') }}".replace(':id',
+                        id); // Ruta para eliminar
+                    sendData(url, {
+                        _method: 'DELETE',
+                        id: id
+                    });
                 });
+
                 document.getElementById("btnUpdate").addEventListener("click", function() {
                     let formulario = document.getElementById('eventoForm');
                     const datos = {
@@ -150,16 +158,17 @@
                         end: formulario.end.value
                     };
 
-                    const url = "{{ route('admin.eventos.update', ':id') }}".replace(':id', formulario.id.value);
-                    
+                    const url = "{{ route('admin.eventos.update', ':id') }}".replace(':id', formulario.id
+                        .value);
+
                     sendData(url, datos);
                 });
-
 
                 function sendData(url, datos) {
                     axios.post(url, datos, {
                         headers: {
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // CSRF token para Laravel
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                'content') // CSRF token para Laravel
                         }
                     }).then((respuesta) => {
                         calendar.refetchEvents(); // Recargar eventos del calendario
