@@ -330,7 +330,7 @@ return [
         [
             'text'        => 'Usuarios',
             'route'         => 'admin.users.index',
-            'icon'        => 'fas fa-users fa-fw',
+            'icon'        => 'bi bi-people-fill',
             'can'  => 'admin.users.index',
         ],
         ['header' => 'ADMINISTRADOR'],

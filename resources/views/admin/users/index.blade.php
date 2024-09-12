@@ -6,7 +6,6 @@
     <h1>Lista de usuarios</h1>
 @stop
 @section('content')
-<p>hey</p>
     @livewire('admin.users-index')
 @stop
 @section('css')
