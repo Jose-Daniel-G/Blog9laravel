@@ -60,7 +60,7 @@ usuario
  - curso_id
 
 
- ## Crear servidor local
+ ## CREATE LOCAL SERVER 
   como administrador habre este documento
   - C:\Windows\System32\drivers\etc\hosts
   en el archivo adiccionar el host
@@ -79,16 +79,20 @@ usuario
         DocumentRoot "/xampp/htdocs/www/laravel/public"
     </VirtualHost>                     # RUTA 
 
+### FILES ROUTE
 php artisan storage:link
 
+# CLEAN GRABAGE
 php artisan cache:clear
 php artisan config:clear
 php artisan view:clear
 php artisan route:clear
 php artisan view:clear
 
+# INSTALL LANGUAGE
 composer require laravel-lang/common
 php artisan lang:add es
 php artisan lang:update
+# -------------------------
 composer dump-autoload
 git rm --cached DB_HEBRON.jpg

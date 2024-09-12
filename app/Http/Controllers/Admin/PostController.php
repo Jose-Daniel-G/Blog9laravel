@@ -49,7 +49,7 @@ class PostController extends Controller
         if($request->tags){
             $post->tags()->attach($request->tags);
         }
-        return redirect()->route('admin.posts.edit', $post)->with('success','las validaciones pasarion con exito');
+        return redirect()->route('admin.posts.edit', $post)->with('success','las validaciones pasaron con exito');
     }
 
     public function edit(Post $post)

@@ -9,8 +9,8 @@
 </div>
 <div class="form-group">
     <label for="name">Slug</label>
-    <input type="text" name="slug" id="slug" class="form-control" placeholder="Ingrese el slug del post"
-        value="{{ old('slug', $post->slug ?? '') }}">
+    <input type="text" name="slug" id="slug" class="form-control" placeholder="Slug del post"
+        value="{{ old('slug', $post->slug ?? '') }}" readonly>
     @error('slug')
         <small class="text-danger">{{ $message }}</small>
     @enderror

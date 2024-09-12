@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Curso;
 use Illuminate\Http\Request;
 
@@ -26,7 +27,7 @@ class CursoController extends Controller
         $curso->horas_requeridas = $request->horas_requeridas;
         $curso->save();
 
-        return redirect()->route('admin.cursos.index');
+        return redirect()->route('admin.cursos.index')->with('success','las validaciones pasarion con exito');
     }
 
     public function edit($id)

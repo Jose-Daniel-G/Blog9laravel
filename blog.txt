@@ -32,3 +32,8 @@ php artisan make:seeder PostSeeder
  <!-- php artisan make:controller Admin/CategoryController --model=Category -r
 
 De esa forma crea el controlador, y le asigna el modelo Category, entonces ya incluye al modelo y lo define como el tipo de variable de en los parámetros de las funciones -->
+
+
+    <script type="text/javascript">
+        var baseUrl = { !!json_encode(url('/'))!!}
+    </script>

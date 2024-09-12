@@ -20,14 +20,3 @@
         <small id="horasHelp" class="form-text text-muted">Ingrese las horas en formato decimal, por ejemplo, 1.5 para una hora y media.</small>
     </div>
 
-<!-- JavaScript para limpiar el formulario al cerrar el modal -->
-{{-- @section('js')
-    <script>
-        $(document).ready(function() {
-            // Limpiar el formulario de creación cuando se cierra el modal
-            $('#createVehiculoModal').on('hidden.bs.modal', function() {
-                $('#createVehiculoForm')[0].reset(); // Restablece el formulario al estado inicial
-            });
-        });
-    </script>
-@endsection --}}

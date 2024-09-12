@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Clase;
 use Illuminate\Http\Request;
 
@@ -62,3 +63,4 @@ class ClaseController extends Controller
         return redirect()->route('clases.index');
     }
 }
+
