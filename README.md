@@ -60,15 +60,16 @@ usuario
  - curso_id
 
 
- ## CREATE LOCAL SERVER 
+ ## CREATE LOCAL SERVER CON XAMMP
   como administrador habre este documento
   - C:\Windows\System32\drivers\etc\hosts
-  en el archivo adiccionar el host
+   `` adicionar estas lineas `` 
   - 127.0.0.1 laravel9.test
 
   luego dirigirse a esta ruta y editar el siguiente archivo
   - C:\xampp\apache\conf\extra\httpd-vhosts.conf
   adicionar estas lineas 
+    ```
     <VirtualHost *:80>
         ServerName localhost
         DocumentRoot "/xampp/htdocs"
@@ -77,17 +78,18 @@ usuario
     <VirtualHost *:80>
         ServerName laravel9.test
         DocumentRoot "/xampp/htdocs/www/laravel/public"
-    </VirtualHost>                     # RUTA 
+    </VirtualHost>
+    ```                    # RUTA 
 
 ### FILES ROUTE
-php artisan storage:link
+ -php artisan storage:link
 
-# CLEAN GRABAGE
-php artisan cache:clear
-php artisan config:clear
-php artisan view:clear
-php artisan route:clear
-php artisan view:clear
+### CLEAN GRABAGE
+- php artisan cache:clear
+- php artisan config:clear
+- php artisan view:clear
+- php artisan route:clear
+- php artisan view:clear
 
 # INSTALL LANGUAGE
 composer require laravel-lang/common
