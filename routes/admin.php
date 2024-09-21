@@ -24,7 +24,6 @@ Route::resource('cursos', CursoController::class)->names('admin.cursos');
 
 Route::group(['middleware'=>['auth']], function(){
     // Route::resource('eventos', EventoController::class)->names('eventos');
-
     Route::get('eventos', [EventoController::class, 'index'])->name('admin.eventos.index');
     Route::get('eventos/mostrar', [EventoController::class, 'show'])->name('admin.eventos.show');
     Route::post('eventos/editar/{id}', [EventoController::class, 'edit'])->name('admin.eventos.edit');
